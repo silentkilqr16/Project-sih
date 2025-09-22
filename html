@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SKILLSPRINT - Your Career guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <h1>SKILLSPRINT</h1>
+      <p class="tag">Your Career guide</p>
+    </div>
+    <nav class="top-nav">
+      <button id="btn-home" class="nav-btn">Home</button>
+      <button id="btn-clusters" class="nav-btn">Career Clusters</button>
+      <button id="btn-assess" class="nav-btn">Self Assessment</button>
+      <button id="auth-btn" class="nav-btn primary">Sign in / Sign up</button>
+      <div id="user-area" class="user-area hidden">
+        <span id="welcome-text"></span>
+        <button id="btn-dashboard" class="nav-btn">Dashboard</button>
+        <button id="btn-logout" class="nav-btn danger">Logout</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-card">
+        <h2>Explore Your Future</h2>
+        <p>Interactive career paths, personality-aligned suggestions, and progress tracking to help you build a purposeful plan.</p>
+        <div class="hero-actions">
+          <button class="cta" id="start-explore">Start Exploring</button>
+          <button class="cta outline" id="open-auth">Sign in to save progress</button>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <!-- decorative shapes -->
+      </div>
+    </section>
+
+    <section class="clusters" id="clusters">
+      <div class="section-header">
+        <h2>Career Clusters</h2>
+        <p>Select a cluster to explore popular roles and suggested pathways.</p>
+      </div>
+      <div class="grid" id="cluster-grid">
+        <!-- cards injected or present by default -->
+        <article class="card" data-cluster="health">
+          <h3>Health Science</h3>
+          <p>Careers in medicine, nursing, allied health, and public health.</p>
+          <div class="card-actions">
+            <button class="btn-sm view-cluster">View</button>
+            <button class="btn-sm save-cluster">Save</button>
+          </div>
+        </article>
+
+        <article class="card" data-cluster="it">
+          <h3>Information Technology</h3>
+          <p>Software engineering, cybersecurity, data science, and cloud roles.</p>
+          <div class="card-actions">
+            <button class="btn-sm view-cluster">View</button>
+            <button class="btn-sm save-cluster">Save</button>
+          </div>
+        </article>
+
+        <article class="card" data-cluster="arts">
+          <h3>Arts & Communication</h3>
+          <p>Design, media production, content creation, and performing arts.</p>
+          <div class="card-actions">
+            <button class="btn-sm view-cluster">View</button>
+            <button class="btn-sm save-cluster">Save</button>
+          </div>
+        </article>
+
+        <article class="card" data-cluster="business">
+          <h3>Business & Finance</h3>
+          <p>Management, accounting, marketing, and entrepreneurship.</p>
+          <div class="card-actions">
+            <button class="btn-sm view-cluster">View</button>
+            <button class="btn-sm save-cluster">Save</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="assessment" id="assessment">
+      <div class="section-header">
+        <h2>Quick Self Assessment</h2>
+        <p>A short interactive quiz that gives a recommended cluster match.</p>
+      </div>
+      <div class="quiz-card">
+        <form id="quiz-form">
+          <label>Pick the activity you enjoy most:</label>
+          <select id="quiz-q1">
+            <option value="it">Building software or solving tech problems</option>
+            <option value="health">Helping people with health and care</option>
+            <option value="arts">Creating art, stories, or media</option>
+            <option value="business">Leading teams and managing projects</option>
+          </select>
+          <label>Choose your preferred work style:</label>
+          <select id="quiz-q2">
+            <option value="it">Structured, logical, problem-solving</option>
+            <option value="health">Caring, detailed, high responsibility</option>
+            <option value="arts">Flexible, expressive, creative</option>
+            <option value="business">Strategic, analytical, goal-oriented</option>
+          </select>
+          <div class="quiz-actions">
+            <button type="submit" class="btn-sm primary">Get Recommendation</button>
+            <button type="button" id="quiz-clear" class="btn-sm">Clear</button>
+          </div>
+        </form>
+        <div id="quiz-result" class="quiz-result hidden"></div>
+      </div>
+    </section>
+
+    <section class="dashboard hidden" id="dashboard">
+      <div class="section-header">
+        <h2>Your Dashboard</h2>
+        <p>Saved clusters, completed quizzes, and quick next steps.</p>
+      </div>
+      <div id="saved-list" class="saved-list">No saved items yet.</div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 PathFinder. All rights reserved.</p>
+  </footer>
+
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+<!-- Auth Modal -->
+  <div id="auth-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="modal-content">
+      <button class="modal-close" id="close-auth" aria-label="Close">✕</button>
+      <h3 id="auth-title">Sign in or Sign up</h3>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="signin">Sign in</button>
+        <button class="tab" data-tab="signup">Sign up</button>
+      </div>
+
+      <div class="tab-panels">
+        <div class="tab-panel" id="panel-signin">
+          <form id="signin-form">
+            <label for="signin-email">Email</label>
+            <input id="signin-email" name="email" type="email" required autocomplete="username" />
+            <label for="signin-password">Password</label>
+            <input id="signin-password" name="password" type="password" required autocomplete="current-password" />
+            <div class="form-actions">
+              <button type="submit" class="btn primary">Sign in</button>
+            </div>
+            <div class="auth-feedback" id="signin-feedback" role="status"></div>
+          </form>
+        </div>
+
+        <div class="tab-panel hidden" id="panel-signup">
+          <form id="signup-form">
+            <label for="signup-name">Full name</label>
+            <input id="signup-name" name="name" type="text" required autocomplete="name" />
+            <label for="signup-email">Email</label>
+            <input id="signup-email" name="email" type="email" required autocomplete="email" />
+            <label for="signup-password">Password</label>
+            <input id="signup-password" name="password" type="password" minlength="6" required autocomplete="new-password" />
+            <label for="signup-password-confirm">Confirm Password</label>
+            <input id="signup-password-confirm" name="confirm" type="password" minlength="6" required autocomplete="new-password" />
+            <div class="form-actions">
+              <button type="submit" class="btn primary">Create account</button>
+            </div>
+            <div class="auth-feedback" id="signup-feedback" role="status"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
